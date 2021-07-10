@@ -1,8 +1,5 @@
 # Project ignore
 
-### AWS CDK ###
-cdk.out/
-
 ### Generated files and other derivatives ###
 coverage/
 
