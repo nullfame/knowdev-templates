@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "author": "Adam Finlayson",
   "scripts": {
-    "clean": "npm run cdk:clean && npm run test:clean",
+    "clean": "npm run test:clean",
     "format": "sort-package-json && eslint --fix",
     "lint": "eslint",
     "prepare": "npm run prepare:env && npm run prepare:husky",
