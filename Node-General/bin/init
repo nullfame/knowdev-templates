@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# The path to this script
+# For zsh: THIS_SCRIPT=${(%):-%N}
+# For bash:
+THIS_SCRIPT=${BASH_SOURCE[0]}
+
+# Set the project path and go!
+PROJECT_PATH="$( cd "$( dirname "$THIS_SCRIPT" )/.." && pwd )"
+echo "Running one-time init for: $PROJECT_PATH"
+
+# Create a repo in the folder
+git init $PROJECT_PATH
+
+# Install NPM modules
+npm --prefix $PROJECT_PATH install --save-dev @babel/cli @babel/core @babel/preset-env
+npm --prefix $PROJECT_PATH install --save dotenv
+npm --prefix $PROJECT_PATH install --save-dev eslint prettier eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
+npm --prefix $PROJECT_PATH install --save-dev husky lint-staged sort-package-json
+npm --prefix $PROJECT_PATH install --save-dev hygen
+npm --prefix $PROJECT_PATH install --save-dev jest jest-extended eslint-plugin-jest
+npm --prefix $PROJECT_PATH install --save-dev rimraf cpy-cli
+
+# Clean up
+rm $THIS_SCRIPT
