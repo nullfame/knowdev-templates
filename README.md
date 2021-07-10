@@ -2,17 +2,20 @@
 
 Starter templates for various project types
 
-## 🌩 AWS CDK
+## 🌐 Global Setup
 
-Work in progress - 🚧
+* Edit package.json
+* `./bin/init`
+* `npm run prepare:husky`
+* Edit README.md
 
-## 🧩 Node General
+## ❄️ Template-specific Steps
 
-Work in progress - 🚧
+### AWS CDK 🌩
 
-## 📦 Node Package
+### Node General 🧩
 
-Work in progress - 🚧
+### Node Package 📦
 
 ## 📜 License
 

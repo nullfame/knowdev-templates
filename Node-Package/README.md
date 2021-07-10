@@ -1,4 +1,4 @@
-# Know Dev Studio Project 🧧
+# KnowDev Project 🧧
 
 ## 📋 Usage
 
@@ -6,7 +6,7 @@
 
 ## 🛣 Roadmap
 
-### Wishlist
+### Wishlist 🌠
 
 ## 📜 License
 
