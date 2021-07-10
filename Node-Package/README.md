@@ -2,6 +2,18 @@
 
 ## 📋 Usage
 
+``` bash
+npm install --save @knowdev/XXXXXX
+```
+
+## 📖 Reference
+
+* `toBeClass()`
+
+## 🚀 Deployment
+
+`npm run publish`
+
 ## 📝 Changelog
 
 ## 🛣 Roadmap
