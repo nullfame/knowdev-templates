@@ -8,11 +8,9 @@ npm install --save @knowdev/XXXXXX
 
 ## 📖 Reference
 
-* `toBeClass()`
-
 ## 🚀 Deployment
 
-`npm run publish`
+`npm publish --access=public`
 
 ## 📝 Changelog
 
