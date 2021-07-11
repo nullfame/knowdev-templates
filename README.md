@@ -16,6 +16,8 @@ Starter templates for various project types
 
 ### Node Package 📦
 
+* `npm publish --access=public`
+
 ## 📜 License
 
 All rights reserved. Safe for use around pets.
