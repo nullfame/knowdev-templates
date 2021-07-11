@@ -19,5 +19,8 @@ npm --prefix $PROJECT_PATH install --save-dev hygen
 npm --prefix $PROJECT_PATH install --save-dev jest jest-extended eslint-plugin-jest
 npm --prefix $PROJECT_PATH install --save-dev rimraf
 
+# Init
+npm run prepare:husky
+
 # Clean up
 rm $THIS_SCRIPT

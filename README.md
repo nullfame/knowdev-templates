@@ -6,7 +6,6 @@ Starter templates for various project types
 
 * Edit package.json
 * `./bin/init`
-* `npm run prepare:husky`
 * Edit README.md
 
 ## ❄️ Template-specific Steps
