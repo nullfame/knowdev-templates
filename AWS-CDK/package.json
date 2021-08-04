@@ -5,13 +5,21 @@
   "license": "UNLICENSED",
   "author": "Adam Finlayson",
   "scripts": {
+    "cdk:clean": "rimraf cdk.out/",
+    "cdk:deploy": "env-cmd cdk deploy",
+    "cdk:deploy:approve": "env-cmd cdk deploy --require-approval never",
+    "cdk:destroy": "env-cmd cdk destroy",
+    "cdk:destroy:force": "env-cmd cdk destroy --force",
+    "cdk:synth": "env-cmd cdk synth",
     "clean": "npm run cdk:clean && npm run test:clean",
     "format": "sort-package-json && eslint --fix",
     "lint": "eslint",
-    "prepare": "npm run prepare:husky",
-    "prepare:husky": "husky install",
+    "postinstall": "npm run prepare:env && npm run prepare:husky",
+    "postinstall:env": "cpy .env.sample . --rename=.env",
+    "postinstall:husky": "husky install",
     "test": "jest src/",
     "test:clean": "rimraf coverage/",
-    "test:coverage": "jest --coverage src/"
+    "test:coverage": "jest --coverage src/",
+    "version": "npm --prefix src --git-tag-version=false version $npm_package_version && git add src/package.json"
   }
 }
