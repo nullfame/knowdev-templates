@@ -15,6 +15,7 @@ git init $PROJECT_PATH
 # Install NPM modules
 npm --prefix $PROJECT_PATH install --save @knowdev/cdk
 npm --prefix $PROJECT_PATH install --save dotenv
+npm --prefix $PROJECT_PATH install --save-dev aws-cdk env-cmd
 npm --prefix $PROJECT_PATH install --save-dev eslint prettier eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
 npm --prefix $PROJECT_PATH install --save-dev husky lint-staged sort-package-json
 npm --prefix $PROJECT_PATH install --save-dev hygen

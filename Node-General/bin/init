@@ -17,7 +17,7 @@ npm --prefix $PROJECT_PATH install --save-dev eslint prettier eslint-config-airb
 npm --prefix $PROJECT_PATH install --save-dev husky lint-staged sort-package-json
 npm --prefix $PROJECT_PATH install --save-dev hygen
 npm --prefix $PROJECT_PATH install --save-dev jest jest-extended eslint-plugin-jest
-npm --prefix $PROJECT_PATH install --save-dev rimraf cpy-cli
+npm --prefix $PROJECT_PATH install --save-dev rimraf
 
 # Init
 npm run prepare:husky
