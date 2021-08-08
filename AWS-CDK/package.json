@@ -21,6 +21,6 @@
     "test": "jest src/",
     "test:clean": "rimraf coverage/",
     "test:coverage": "jest --coverage src/",
-    "version": "npm --prefix src --git-tag-version=false version $npm_package_version && git add src/package.json"
+    "version": "npm --prefix src --git-tag-version=false version $npm_package_version && git add src/package.json && git add src/package-lock.json"
   }
 }
