@@ -8,9 +8,9 @@
     "clean": "npm run test:clean",
     "format": "sort-package-json && eslint --fix",
     "lint": "eslint",
-    "prepare": "npm run prepare:env && npm run prepare:husky",
-    "prepare:env": "cpy .env.sample . --rename=.env",
-    "prepare:husky": "husky install",
+    "postinstall": "npm run postinstall:env && npm run postinstall:husky",
+    "postinstall:env": "cpy .env.sample . --rename=.env --no-overwrite",
+    "postinstall:husky": "husky install",
     "test": "jest src/",
     "test:clean": "rimraf coverage/",
     "test:coverage": "jest --coverage src/"

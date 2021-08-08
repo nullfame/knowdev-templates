@@ -20,7 +20,7 @@ npm --prefix $PROJECT_PATH install --save-dev jest jest-extended eslint-plugin-j
 npm --prefix $PROJECT_PATH install --save-dev rimraf
 
 # Init
-npm run prepare:husky
+npm run postinstall
 
 # Clean up
 rm $THIS_SCRIPT
