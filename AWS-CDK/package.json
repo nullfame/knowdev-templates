@@ -16,7 +16,7 @@
     "lint": "eslint",
     "postinstall": "npm run postinstall:env && npm run postinstall:husky && npm run postinstall:src",
     "postinstall:env": "cpy .env.sample . --rename=.env --no-overwrite",
-    "postinstall:husky": "husky install",
+    "postinstall:husky": "husky install && husky add .husky/pre-commit lint-staged",
     "postinstall:src": "npm --prefix src install",
     "test": "jest src/",
     "test:clean": "rimraf coverage/",
