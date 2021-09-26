@@ -24,6 +24,8 @@ npm --prefix $PROJECT_PATH install --save-dev rimraf cpy-cli
 
 # Init
 npm run postinstall
+husky install
+husky add .husky/pre-commit lint-staged
 
 # Clean up
 rm $THIS_SCRIPT
