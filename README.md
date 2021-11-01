@@ -6,6 +6,7 @@ Starter templates for various project types
 
 * Edit package.json
 * `./bin/init`
+* `husky install`
 * Edit README.md
 
 ## ❄️ Template-specific Steps
