@@ -3,6 +3,8 @@
     "Finlayson",
     "knowdev",
     "postversion",
-    "roadmap"
+    "roadmap",
+    "vuetify",
+    "vuex"
   ]
 }

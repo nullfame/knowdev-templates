@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Usage command and exit
+usage() {
+	echo "Usage: $0 <new-dir>"
+	exit 1
+}
+
+# Make sure parameter is passed
+if [[ "$1" == "" ]]; then
+  usage
+fi
+
+# Establish the node environment
+source ~/.bashrc
+
+# Establish current/working directory
+WORKING_DIRECTORY=$(pwd)
+
+# Establish template directory
+cd $WORKING_DIRECTORY/$( dirname "${BASH_SOURCE[0]}" )/..
+TEMPLATE_DIRECTORY=$(pwd)
+
+# Return to working directory
+cd $WORKING_DIRECTORY
+
+# Create vue app
+vue create $1
+
+# Enter project directory
+cd $1
+PROJECT_DIRECTORY=$(pwd)
+
+# Install Vuetify
+vue add vuetify
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Install Vuex
+vue add vuex
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Install npm dependencies
+npm install --save-dev eslint-config-prettier@6 eslint-plugin-prettier-vue prettier
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# rm favicon
+rm public/favicon.ico
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Copy in Vuex store pattern
+cp -r $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/store $PROJECT_DIRECTORY/src/
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Copy in main.js
+cp -r $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/main.js $PROJECT_DIRECTORY/src/main.js
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Copy in eslint config
+cp $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/.eslintrc.js $PROJECT_DIRECTORY/.eslintrc.js
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Run lint
+vue-cli-service lint
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# TODO: Copy in deploy patterns
+
+# Debug
+# echo "WORKING_DIRECTORY=$WORKING_DIRECTORY"
+# echo "TEMPLATE_DIRECTORY=$TEMPLATE_DIRECTORY"
+# echo "PROJECT_DIRECTORY=$PROJECT_DIRECTORY"
+echo
+echo "init: complete"
+
