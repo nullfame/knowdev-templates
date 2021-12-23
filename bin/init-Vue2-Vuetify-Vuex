@@ -39,6 +39,10 @@ git add -A && git commit --amend -m "auto: init: first commit"
 vue add vuex
 git add -A && git commit --amend -m "auto: init: first commit"
 
+# Install Router
+vue add router
+git add -A && git commit --amend -m "auto: init: first commit"
+
 # Install npm dependencies
 npm install --save-dev eslint-config-prettier@6 eslint-plugin-prettier-vue prettier
 git add -A && git commit --amend -m "auto: init: first commit"
