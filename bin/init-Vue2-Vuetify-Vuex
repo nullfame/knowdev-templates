@@ -52,7 +52,7 @@ cp -r $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/store $PROJECT_DIRECTORY/src/
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # Copy in main.js
-cp -r $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/main.js $PROJECT_DIRECTORY/src/main.js
+cp $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/main.js $PROJECT_DIRECTORY/src/main.js
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # Copy in eslint config
@@ -61,6 +61,10 @@ git add -A && git commit --amend -m "auto: init: first commit"
 
 # Run lint
 vue-cli-service lint
+git add -A && git commit --amend -m "auto: init: first commit"
+
+# Copy in dictionary
+cp -r $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/.vscode $PROJECT_DIRECTORY/
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # TODO: Copy in deploy patterns
