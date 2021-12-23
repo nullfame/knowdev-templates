@@ -68,7 +68,7 @@ vue-cli-service lint
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # Copy in dictionary
-cp -r $TEMPLATE_DIRECTORY/Vue2-Vuetify-Vuex/.vscode $PROJECT_DIRECTORY/
+cp -r $TEMPLATE_DIRECTORY/.vscode $PROJECT_DIRECTORY/
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # TODO: Copy in deploy patterns
