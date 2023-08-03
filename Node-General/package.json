@@ -6,8 +6,8 @@
   "author": "Adam Finlayson",
   "scripts": {
     "clean": "npm run test:clean",
-    "format": "sort-package-json && eslint --fix",
-    "lint": "eslint",
+    "format": "sort-package-json && eslint --fix .",
+    "lint": "eslint .",
     "postinstall": "npm run postinstall:env",
     "postinstall:env": "cpy .env.sample . --rename=.env --no-overwrite",
     "test": "jest src/",
