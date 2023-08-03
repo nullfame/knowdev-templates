@@ -25,26 +25,26 @@ TEMPLATE_DIRECTORY=$(pwd)
 cd $WORKING_DIRECTORY
 
 # Create vue app
-vue create $1
+npx -y @vue/cli create $1
 
 # Enter project directory
 cd $1
 PROJECT_DIRECTORY=$(pwd)
 
 # Install Vuetify
-vue add vuetify
+npx -y @vue/cli add vuetify
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # Install Vuex
-vue add vuex
+npx -y @vue/cli add vuex
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # Install Router
-vue add router
+npx -y @vue/cli add router
 git add -A && git commit --amend -m "auto: init: first commit"
 
 # Install unit testing dependencies
-vue add unit-jest
+npx -y @vue/cli add unit-jest
 npm install --save-dev @vue/test-utils jest-extended
 git add -A && git commit --amend -m "auto: init: first commit"
 
