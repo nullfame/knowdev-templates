@@ -11,8 +11,6 @@ Starter templates for various project types
 
 ## ❄️ Template-specific Steps
 
-### AWS CDK 🌩
-
 ### Node General 🧩
 
 ### Node Package 📦
