@@ -1,0 +1,19 @@
+{
+  "cSpell.words": [
+    "certificatemanager",
+    "composables",
+    "Finlayson",
+    "fontface",
+    "iconsets",
+    "knowdev",
+    "oidc",
+    "pinia",
+    "roboto",
+    "spicymanipulator",
+    "unplugin",
+    "vuekit",
+    "vuetify",
+    "wght"
+  ],
+  "testing.automaticallyOpenPeekView": "never"
+}

@@ -1,0 +1,13 @@
+@use "./colors" as *;
+
+@use 'vuetify' with (
+  $color-pack: false,
+);
+// @use "vuetify/tools" as *;
+
+// @use "@/styles/fonts" as *;
+
+// Debug
+.debug {
+  border: 1px dotted rgba(var(--app-debug-border, 202, 104, 122), 0.25) !important;
+}

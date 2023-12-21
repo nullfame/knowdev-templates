@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Determine the project name
+basename=$(basename "$(pwd)")
+basename=${basename:-root}
+echo -n "Project name [$basename]: "
+read PROJECT_NAME
+PROJECT_NAME=${PROJECT_NAME:-$basename}
+
+# The path to this script
+THIS_SCRIPT=${BASH_SOURCE[0]}
+
+# Set the project path and go!
+PROJECT_PATH="$( cd "$( dirname "$THIS_SCRIPT" )/.." && pwd )"
+echo "Running one-time init for $PROJECT_NAME in $PROJECT_PATH"
+
+# Create a repo in the folder
+git init $PROJECT_PATH
+
+# Replace XXXXXX with the project name in package.json
+sed -i "" "s/XXXXXX/$PROJECT_NAME/g" $PROJECT_PATH/package.json
+# Install outter project NPM modules
+npm --prefix $PROJECT_PATH install \
+  @mdi/font \
+  @mdi/js \
+  core-js \
+  pinia \
+  roboto-fontface \
+  vue \
+  vue-router \
+  vuetify \
+  # END npm install
+npm --prefix $PROJECT_PATH install --save-dev \
+  @vitejs/plugin-vue \
+  @vue/test-utils \
+  eslint \
+  eslint-config-prettier \
+  eslint-plugin-prettier-vue \
+  eslint-plugin-vue \
+  hygen \
+  jest-extended \
+  jsdom \
+  prettier \
+  resize-observer-polyfill \
+  rimraf \
+  sass \
+  sort-package-json \
+  unplugin-fonts \
+  vite \
+  vite-plugin-vuetify \
+  vitest \
+  # END npm install --save-dev
+npm --prefix $PROJECT_PATH --git-tag-version=false version "0.0.1"
+
+# Install CDK project modules
+CDK_PATH="$PROJECT_PATH/cdk"
+# Replace XXXXXX with the project name in package.json
+sed -i "" "s/XXXXXX/$PROJECT_NAME/g" $CDK_PATH/package.json
+npm --prefix $CDK_PATH install \
+  @knowdev/errors \
+  aws-cdk-lib \
+  constructs \
+  # END npm install
+npm --prefix $CDK_PATH install --save-dev \
+  aws-cdk \
+  eslint-config-airbnb-base \
+  eslint-plugin-prettier \
+  # END npm install --save-dev
+npm --prefix $CDK_PATH --git-tag-version=false version "0.0.1"
+
+# Lint thyself
+npm --prefix $PROJECT_PATH run format:package
+
+# Clean up
+rm $THIS_SCRIPT

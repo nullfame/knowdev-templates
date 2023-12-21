@@ -1,0 +1,22 @@
+{
+  "name": "spicymanipulator-cdk",
+  "version": "0.0.2",
+  "type": "module",
+  "bin": {
+    "cdk": "bin/cdk.js"
+  },
+  "scripts": {
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "@knowdev/errors": "^1.4.0",
+    "@knowdev/magpie": "^0.1.0",
+    "aws-cdk-lib": "^2.115.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.115.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-prettier": "^5.1.0"
+  }
+}
