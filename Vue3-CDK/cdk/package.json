@@ -1,6 +1,6 @@
 {
-  "name": "spicymanipulator-cdk",
-  "version": "0.0.2",
+  "name": "unknown-project-cdk",
+  "version": "0.0.1",
   "type": "module",
   "bin": {
     "cdk": "bin/cdk.js"

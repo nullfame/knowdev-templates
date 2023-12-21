@@ -1,6 +1,6 @@
 {
-  "name": "spicymanipulator",
-  "version": "0.0.2",
+  "name": "unknown-project",
+  "version": "0.0.1",
   "author": "Adam Finlayson",
   "scripts": {
     "build": "vite build",
@@ -19,37 +19,6 @@
     "test:spec:cdk": "vitest run cdk/test",
     "version": "npm run version:cdk",
     "version:cdk": "npm --prefix cdk --git-tag-version=false version $npm_package_version && git add cdk/package.json && git add cdk/package-lock.json"
-  },
-  "dependencies": {
-    "@knowdev/magpie": "^0.1.0",
-    "@mdi/font": "^7.3.67",
-    "@mdi/js": "^7.3.67",
-    "core-js": "^3.34.0",
-    "pinia": "^2.1.7",
-    "roboto-fontface": "^0.10.0",
-    "vue": "^3.3.13",
-    "vue-router": "^4.2.5",
-    "vuetify": "^3.4.8"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.2",
-    "@vue/test-utils": "^2.4.3",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier-vue": "^5.0.0",
-    "eslint-plugin-vue": "^9.19.2",
-    "hygen": "^6.2.11",
-    "jest-extended": "^4.0.2",
-    "jsdom": "^23.0.1",
-    "prettier": "^3.1.1",
-    "resize-observer-polyfill": "^1.5.1",
-    "rimraf": "^5.0.5",
-    "sass": "^1.69.5",
-    "sort-package-json": "^2.6.0",
-    "unplugin-fonts": "^1.1.1",
-    "vite": "^5.0.10",
-    "vite-plugin-vuetify": "^2.0.1",
-    "vitest": "^1.1.0"
   },
   "volta": {
     "node": "18.18.0",
