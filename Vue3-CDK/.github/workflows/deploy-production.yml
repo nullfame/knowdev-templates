@@ -1,0 +1,99 @@
+name: Build to Production
+
+on:
+  push:
+    tags:
+      - v1.**
+      # TODO: decide if pre-1.0 tags go to production
+      # - v0.**
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ROLE_ARN: ${{ vars.ACCOUNT_KNOWDEV_AWS_ROLE_ARN }}
+  BUCKET_DEPLOY_ROLE_ARN: unknown # Quiet linting, populate on build
+  CDK_ENV_HOSTED_ZONE: knowdev.studio
+  CDK_ENV_REPO: ${{ github.repository }}
+  CDK_ENV_SUBDOMAIN: unknown # TODO: set CDK_ENV_SUBDOMAIN (e.g., mayhem)
+  LOG_LEVEL: trace
+  PROJECT_COMMIT: ${{ github.sha }}
+  PROJECT_ENV: production
+  PROJECT_KEY: unknown # TODO: set PROJECT_KEY (e.g., mayhem)
+  # TODO: randomize
+  PROJECT_NONCE: 270abba9 # Random on 12/29/2023 for deploy-production in nullfame/knowdev-templates
+  # TODO: set PROJECT_SERVICE if applicable
+  PROJECT_SERVICE: none # e.g., company-api; to tie multiple projects
+  PROJECT_SPONSOR: knowdev
+  VITE_PROJECT_BUILD_NUMBER: ${{ github.run_number }}
+  VITE_PROJECT_ENV: production
+
+# * Changes beyond this point should be minimal
+
+jobs:
+  deploy:
+    name: Deploy to AWS
+    permissions:
+      id-token: write # for aws-actions/configure-aws-credentials
+      contents: read # for actions/checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          role-session-name: DeployRoleForGitHubSession
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Configuration and Setup
+        run: |
+          CDK_ENV_STACK_NAME=cdk-${{env.PROJECT_SPONSOR}}-${{env.PROJECT_KEY}}-${{env.PROJECT_ENV}}-${{env.PROJECT_NONCE}}
+          echo "CDK_ENV_STACK_NAME=$CDK_ENV_STACK_NAME" >> $GITHUB_ENV
+      - name: NPM Install (`npm ci`)
+        run: npm ci
+      - name: Build Frontend (`npm run build`)
+        run: npm run build
+      - name: CDK Deploy
+        run: |
+          npm --prefix cdk run cdk deploy -- --require-approval never
+      - name: Fetch Deploy Role ARN
+        id: fetch-role-arn
+        run: |
+          BUCKET_DEPLOY_ROLE_ARN=$(aws cloudformation describe-stacks --stack-name $CDK_ENV_STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='DestinationBucketDeployRoleArn'].OutputValue" --output text)
+          echo "BUCKET_DEPLOY_ROLE_ARN=$BUCKET_DEPLOY_ROLE_ARN" >> $GITHUB_ENV
+      - name: Assume New AWS Role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.BUCKET_DEPLOY_ROLE_ARN }}
+          role-session-name: BucketDeployGitHubSession
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Site Deploy (sync to S3 bucket)
+        run: |
+          BUCKET_NAME=$(aws cloudformation describe-stacks --stack-name $CDK_ENV_STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='DestinationBucketName'].OutputValue" --output text)
+          aws s3 sync --delete ./dist s3://$BUCKET_NAME
+  lint:
+    name: Lint (in parallel)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Run ESLint
+        run: npm run lint
+  test:
+    name: Unit Test (in parallel)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: |
+        npm test

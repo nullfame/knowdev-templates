@@ -16,11 +16,7 @@ Starter templates for various project types
 
 * `npm publish --access=public`
 
-### Vue 2, Vuetify, Vuex 🖖
-
-``` bash
-./knowdev-templates/bin/init-Vue2-Vuetify-Vuex PROJECT_NAME
-```
+### Vue 3 🐉
 
 ## 📜 License
 

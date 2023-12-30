@@ -21,6 +21,7 @@ git init $PROJECT_PATH
 sed -i "" "s/XXXXXX/$PROJECT_NAME/g" $PROJECT_PATH/package.json
 # Install outter project NPM modules
 npm --prefix $PROJECT_PATH install \
+  @knowdev/magpie \
   @mdi/font \
   @mdi/js \
   core-js \
@@ -58,6 +59,7 @@ CDK_PATH="$PROJECT_PATH/cdk"
 sed -i "" "s/XXXXXX/$PROJECT_NAME/g" $CDK_PATH/package.json
 npm --prefix $CDK_PATH install \
   @knowdev/errors \
+  @knowdev/magpie \
   aws-cdk-lib \
   constructs \
   # END npm install
