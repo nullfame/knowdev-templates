@@ -4,6 +4,7 @@ import {
   cfnOutput,
   isValidHostname,
   isValidSubdomain,
+  mergeDomain,
 } from "@knowdev/magpie";
 
 import {
@@ -131,7 +132,10 @@ class CdkStack extends Stack {
     if (config.build.static) {
       Tags.of(this).add(CDK.TAG.BUILD_TYPE, CDK.BUILD.STATIC);
       config.host = {
-        name: `${process.env.CDK_ENV_SUBDOMAIN}.${process.env.CDK_ENV_HOSTED_ZONE}`,
+        name: mergeDomain(
+          process.env.CDK_ENV_SUBDOMAIN,
+          process.env.CDK_ENV_HOSTED_ZONE,
+        ),
         zone: process.env.CDK_ENV_HOSTED_ZONE,
       };
     }
