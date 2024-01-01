@@ -14,10 +14,10 @@ on:
 env:
   AWS_REGION: us-east-1
   AWS_ROLE_ARN: ${{ vars.ACCOUNT_KNOWDEV_AWS_ROLE_ARN }}
-  BUCKET_DEPLOY_ROLE_ARN: unknown # Quiet linting, populate on build
+  BUCKET_DEPLOY_ROLE_ARN: "" # Quiet linting, populate on build
   CDK_ENV_HOSTED_ZONE: knowdev.studio
   CDK_ENV_REPO: ${{ github.repository }}
-  CDK_ENV_SUBDOMAIN: unknown # TODO: set CDK_ENV_SUBDOMAIN (e.g., mayhem)
+  CDK_ENV_SUBDOMAIN: unknown.sandbox # TODO: set CDK_ENV_SUBDOMAIN (e.g., mayhem)
   LOG_LEVEL: trace
   PROJECT_COMMIT: ${{ github.sha }}
   PROJECT_ENV: sandbox
