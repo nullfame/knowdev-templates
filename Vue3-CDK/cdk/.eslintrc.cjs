@@ -10,7 +10,8 @@ module.exports = {
   },
   plugins: ["prettier"],
   rules: {
-    // Would be nice to have an agnostic no-disabled-tests, no-focused-tests
+    // TODO: no-disabled-tests, no-focused-tests
+    "import/extensions": ["error", "ignorePackages"],
     "prettier/prettier": "error",
     "import/no-extraneous-dependencies": [
       "error",

@@ -6,7 +6,7 @@ to: <%= path %>/__tests__/<%= name %><%= dotSubtype %>.spec.js
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Subject
-import <%= name %> from "../<%= name %><%= dotSubtype %>";
+import <%= name %> from "../<%= name %><%= dotSubtype %>.js";
 
 //
 //
@@ -36,7 +36,7 @@ afterEach(() => {
 // Run tests
 //
 
-<%_ 
+<%_
   let Subtype = "";
   // If subtype is defined, capitalize the first letter
   if(subtype) Subtype = " " + subtype.charAt(0).toUpperCase() + subtype.slice(1);
