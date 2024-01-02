@@ -70,7 +70,32 @@ npm --prefix $CDK_PATH install --save-dev \
   # END npm install --save-dev
 npm --prefix $CDK_PATH --git-tag-version=false version "0.0.1"
 
-# Lint thyself
+# Install Express project modules
+EXPRESS_PATH="$PROJECT_PATH/express"
+npm --prefix $EXPRESS_PATH install \
+  @knowdev/errors \
+  @knowdev/express \
+  @knowdev/http \
+  # END npm install
+npm --prefix $EXPRESS_PATH install \
+  @vendia/serverless-express \
+  body-parser express \
+  lodash.clonedeep \
+  source-map-support \
+  # END npm install --save-dev
+npm --prefix $EXPRESS_PATH --git-tag-version=false version "0.0.1"
+
+# Install Lambda project modules
+LAMBDA_PATH="$PROJECT_PATH/lambda"
+npm --prefix $LAMBDA_PATH install \
+  @knowdev/errors \
+  @knowdev/http \
+  @knowdev/lambda \
+  lodash.clonedeep \
+  # END npm install
+npm --prefix $LAMBDA_PATH --git-tag-version=false version "0.0.1"
+
+# Format package.json files
 npm --prefix $PROJECT_PATH run format:package
 
 # Clean up
