@@ -1,23 +1,17 @@
+// eslint-disable-next-line import/no-commonjs
 module.exports = {
-  env: {
-    browser: true,
-    commonjs: true,
-    es2021: true,
-  },
   extends: ["airbnb-base", "prettier"],
-  parserOptions: {
-    ecmaVersion: "latest",
-  },
-  plugins: ["prettier"],
+  plugins: ["jest", "prettier"],
   rules: {
-    // TODO: no-disabled-tests, no-focused-tests
     "import/extensions": ["error", "ignorePackages"],
-    "prettier/prettier": "error",
+    "import/no-commonjs": "error",
     "import/no-extraneous-dependencies": [
       "error",
-      {
-        packageDir: [".", "cdk"],
-      },
+      { packageDir: [".", "cdk"] },
     ],
+    // "jest/no-disabled-tests": "warn",
+    // "jest/no-focused-tests": "error",
+    "prettier/prettier": "error",
+    "prettier-vue/prettier": "off",
   },
 };

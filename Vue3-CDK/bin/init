@@ -37,7 +37,10 @@ npm --prefix $PROJECT_PATH install --save-dev \
   @vitejs/plugin-vue \
   @vue/test-utils \
   eslint \
+  eslint-config-airbnb-base \
   eslint-config-prettier \
+  eslint-plugin-import \
+  eslint-plugin-prettier \
   eslint-plugin-prettier-vue \
   eslint-plugin-vue \
   hygen \
@@ -65,8 +68,6 @@ npm --prefix $CDK_PATH install \
   # END npm install
 npm --prefix $CDK_PATH install --save-dev \
   aws-cdk \
-  eslint-config-airbnb-base \
-  eslint-plugin-prettier \
   # END npm install --save-dev
 npm --prefix $CDK_PATH --git-tag-version=false version "0.0.1"
 
