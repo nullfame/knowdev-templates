@@ -79,7 +79,8 @@ npm --prefix $EXPRESS_PATH install \
   # END npm install
 npm --prefix $EXPRESS_PATH install \
   @vendia/serverless-express \
-  body-parser express \
+  body-parser \
+  express \
   lodash.clonedeep \
   source-map-support \
   # END npm install --save-dev
