@@ -11,14 +11,18 @@
     "format": "npm run format:package && npm run format:lint",
     "format:lint": "eslint --fix .",
     "format:package": "sort-package-json ./package.json ./*/package.json",
-    "postinstall": "npm run install:cdk",
-    "install:cdk": "npm --prefix cdk ci",
+    "postinstall": "npm run install:cdk && npm run install:express && npm run install:lambda",
+    "install:cdk": "npm --prefix cdk install",
+    "install:express": "npm --prefix express install",
+    "install:lambda": "npm --prefix lambda install",
     "lint": "eslint . --ext .js,.vue --fix --ignore-path .gitignore",
     "preview": "vite preview",
     "test": "vitest",
     "test:spec:cdk": "vitest run cdk/test",
-    "version": "npm run version:cdk",
-    "version:cdk": "npm --prefix cdk --git-tag-version=false version $npm_package_version && git add cdk/package.json && git add cdk/package-lock.json"
+    "version": "npm run version:cdk && npm run version:express && npm run version:lambda",
+    "version:cdk": "npm --prefix cdk --git-tag-version=false version $npm_package_version && git add cdk/package.json && git add cdk/package-lock.json",
+    "version:express": "npm --prefix express --git-tag-version=false version $npm_package_version && git add express/package.json && git add express/package-lock.json",
+    "version:lambda": "npm --prefix lambda --git-tag-version=false version $npm_package_version && git add lambda/package.json && git add lambda/package-lock.json"
   },
   "volta": {
     "node": "18.18.0",
