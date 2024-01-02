@@ -17,8 +17,10 @@ echo "Running one-time init for $PROJECT_NAME in $PROJECT_PATH"
 # Create a repo in the folder
 git init $PROJECT_PATH
 
-# Replace XXXXXX with the project name in package.json
-sed -i "" "s/XXXXXX/$PROJECT_NAME/g" $PROJECT_PATH/package.json
+# Replace unknown-project with the project name in package.json
+sed -i "" "s/unknown-project/$PROJECT_NAME/g" $PROJECT_PATH/package.json
+sed -i "" "s/unknown-project/$PROJECT_NAME/g" $PROJECT_PATH/*/package.json
+
 # Install outter project NPM modules
 npm --prefix $PROJECT_PATH install \
   @knowdev/magpie \
@@ -55,8 +57,6 @@ npm --prefix $PROJECT_PATH --git-tag-version=false version "0.0.1"
 
 # Install CDK project modules
 CDK_PATH="$PROJECT_PATH/cdk"
-# Replace XXXXXX with the project name in package.json
-sed -i "" "s/XXXXXX/$PROJECT_NAME/g" $CDK_PATH/package.json
 npm --prefix $CDK_PATH install \
   @knowdev/errors \
   @knowdev/magpie \
