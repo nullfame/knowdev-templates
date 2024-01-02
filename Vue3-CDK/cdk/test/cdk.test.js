@@ -7,7 +7,8 @@ import cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 
 // Subject
-import { CdkStack } from "../lib/cdk-stack";
+import { CdkBackendStack } from "../lib/cdk-backend.js";
+import { CdkInfrastructureStack } from "../lib/cdk-infrastructure.js";
 
 //
 //
@@ -51,9 +52,15 @@ afterEach(() => {
 
 describe("CDK Stack", () => {
   describe("Baselines", () => {
-    it("Loads", () => {
+    it("CdkBackendStack Loads", () => {
       const app = new cdk.App();
-      const stack = new CdkStack(app, "MyTestStack");
+      const stack = new CdkBackendStack(app, "MyTestStack");
+      const template = Template.fromStack(stack);
+      expect(template).not.toBe(undefined);
+    });
+    it("CdkInfrastructureStack Loads", () => {
+      const app = new cdk.App();
+      const stack = new CdkInfrastructureStack(app, "MyTestStack");
       const template = Template.fromStack(stack);
       expect(template).not.toBe(undefined);
     });

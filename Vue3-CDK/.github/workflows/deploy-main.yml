@@ -8,13 +8,16 @@ on:
     tags:
       - main-*
 
+# * Do not use ${{ secrets }} in the `env` section
 env:
   AWS_REGION: us-east-1
   AWS_ROLE_ARN: ${{ vars.ACCOUNT_KNOWDEV_AWS_ROLE_ARN }}
   BUCKET_DEPLOY_ROLE_ARN: "" # Quiet linting, populate on build
-  CDK_ENV_HOSTED_ZONE: knowdev.studio
+  # CDK_ENV_API_HOSTED_ZONE: knowdev.studio
+  # CDK_ENV_API_SUBDOMAIN: api.unknown # TODO: set CDK_ENV_API_SUBDOMAIN (e.g., mayhem-api)
   CDK_ENV_REPO: ${{ github.repository }}
-  CDK_ENV_SUBDOMAIN: unknown # TODO: set CDK_ENV_SUBDOMAIN (e.g., mayhem)
+  CDK_ENV_WEB_HOSTED_ZONE: knowdev.studio
+  CDK_ENV_WEB_SUBDOMAIN: unknown # TODO: set CDK_ENV_WEB_SUBDOMAIN (e.g., mayhem)
   LOG_LEVEL: trace
   PROJECT_COMMIT: ${{ github.sha }}
   PROJECT_ENV: main
@@ -25,8 +28,8 @@ env:
   PROJECT_SERVICE: none # e.g., company-api; to tie multiple projects
   PROJECT_SPONSOR: knowdev
   VITE_PROJECT_BUILD_NUMBER: ${{ github.run_number }}
-  VITE_PROJECT_ENV: main
 
+# * Safer to use ${{ secrets }} below
 # * Changes beyond this point should be minimal
 
 jobs:
@@ -37,6 +40,9 @@ jobs:
       contents: read # for actions/checkout
     runs-on: ubuntu-latest
     steps:
+      ##
+      # Setup
+      ##
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -49,13 +55,33 @@ jobs:
         run: |
           CDK_ENV_STACK_NAME=cdk-${{env.PROJECT_SPONSOR}}-${{env.PROJECT_KEY}}-${{env.PROJECT_ENV}}-${{env.PROJECT_NONCE}}
           echo "CDK_ENV_STACK_NAME=$CDK_ENV_STACK_NAME" >> $GITHUB_ENV
+          echo "VITE_PROJECT_ENV=${{env.PROJECT_ENV}}" >> $GITHUB_ENV
+          CDK_ENV_INFRASTRUCTURE_STACK_SHA=$(shasum -a 1 ./cdk/lib/cdk-infrastructure.js | awk '{print $1}')
+          echo "CDK_ENV_INFRASTRUCTURE_STACK_SHA=$CDK_ENV_INFRASTRUCTURE_STACK_SHA" >> $GITHUB_ENV
       - name: NPM Install (`npm ci`)
         run: npm ci
+      ##
+      # Infrastructure Deployment
+      ##
+      - name: CDK Infrastructure Deployment
+        run: |
+          if aws cloudformation describe-stacks --stack-name $CDK_ENV_STACK_NAME-infrastructure --query 'Stacks[0].Tags[?Key==`stackSha`].Value' --output text | grep -q $CDK_ENV_INFRASTRUCTURE_STACK_SHA; then
+            echo "Infrastructure $CDK_ENV_INFRASTRUCTURE_STACK_SHA already deployed. Skipping deploy step."
+          else
+            echo "Deploying infrastructure $CDK_ENV_INFRASTRUCTURE_STACK_SHA..."
+            npm --prefix cdk run cdk deploy -- CdkInfrastructureStack --require-approval never
+          fi
+      ##
+      # API Backend Deployment
+      ##
+      - name: CDK Infrastructure Deployment
+        run: |
+          npm --prefix cdk run cdk deploy -- CdkBackendStack --require-approval never
+      ##
+      # Web Frontend Deployment
+      ##
       - name: Build Frontend (`npm run build`)
         run: npm run build
-      - name: CDK Deploy
-        run: |
-          npm --prefix cdk run cdk deploy -- --require-approval never
       - name: Fetch Deploy Role ARN
         id: fetch-role-arn
         run: |

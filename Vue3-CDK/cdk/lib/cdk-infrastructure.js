@@ -55,7 +55,7 @@ const { ConfigurationError } = knowdevErrors;
  * folder is `../dist`. This will not be compatible with tests that run from
  * the project root. Tests should mock the web site folder.
  */
-class CdkStack extends Stack {
+class CdkInfrastructureStack extends Stack {
   /**
    *
    * @param {Construct} scope
@@ -72,28 +72,32 @@ class CdkStack extends Stack {
 
     // Throw an error if CDK_HOSTED_ZONE is an invalid hostname
     if (
-      process.env.CDK_ENV_HOSTED_ZONE &&
-      !isValidHostname(process.env.CDK_ENV_HOSTED_ZONE)
+      process.env.CDK_ENV_WEB_HOSTED_ZONE &&
+      !isValidHostname(process.env.CDK_ENV_WEB_HOSTED_ZONE)
     ) {
       throw new ConfigurationError(
-        "CDK_ENV_HOSTED_ZONE is not a valid hostname",
+        "CDK_ENV_WEB_HOSTED_ZONE is not a valid hostname",
       );
     }
 
-    // Throw an error if CDK_ENV_SUBDOMAIN is not a valid hostname
+    // Throw an error if CDK_ENV_WEB_SUBDOMAIN is not a valid hostname
     if (
-      process.env.CDK_ENV_SUBDOMAIN &&
-      !isValidSubdomain(process.env.CDK_ENV_SUBDOMAIN)
+      process.env.CDK_ENV_WEB_SUBDOMAIN &&
+      !isValidSubdomain(process.env.CDK_ENV_WEB_SUBDOMAIN)
     ) {
-      throw new ConfigurationError("CDK_ENV_SUBDOMAIN is not a valid hostname");
+      throw new ConfigurationError(
+        "CDK_ENV_WEB_SUBDOMAIN is not a valid hostname",
+      );
     }
 
     if (
-      (process.env.CDK_ENV_HOSTED_ZONE && !process.env.CDK_ENV_SUBDOMAIN) ||
-      (!process.env.CDK_ENV_HOSTED_ZONE && process.env.CDK_ENV_SUBDOMAIN)
+      (process.env.CDK_ENV_WEB_HOSTED_ZONE &&
+        !process.env.CDK_ENV_WEB_SUBDOMAIN) ||
+      (!process.env.CDK_ENV_WEB_HOSTED_ZONE &&
+        process.env.CDK_ENV_WEB_SUBDOMAIN)
     ) {
       throw new ConfigurationError(
-        "CDK_ENV_HOSTED_ZONE and CDK_ENV_SUBDOMAIN must both be present or both be absent",
+        "CDK_ENV_WEB_HOSTED_ZONE and CDK_ENV_WEB_SUBDOMAIN must both be present or both be absent",
       );
     }
 
@@ -120,10 +124,12 @@ class CdkStack extends Stack {
       bucket: {},
       build: {
         ephemeral:
-          !process.env.CDK_ENV_HOSTED_ZONE && !process.env.CDK_ENV_SUBDOMAIN,
+          !process.env.CDK_ENV_WEB_HOSTED_ZONE &&
+          !process.env.CDK_ENV_WEB_SUBDOMAIN,
         production: process.env.PROJECT_ENV === CDK.ENV.PRODUCTION,
         static:
-          process.env.CDK_ENV_HOSTED_ZONE && process.env.CDK_ENV_SUBDOMAIN,
+          process.env.CDK_ENV_WEB_HOSTED_ZONE &&
+          process.env.CDK_ENV_WEB_SUBDOMAIN,
       },
     };
     if (config.build.ephemeral) {
@@ -133,10 +139,10 @@ class CdkStack extends Stack {
       Tags.of(this).add(CDK.TAG.BUILD_TYPE, CDK.BUILD.STATIC);
       config.host = {
         name: mergeDomain(
-          process.env.CDK_ENV_SUBDOMAIN,
-          process.env.CDK_ENV_HOSTED_ZONE,
+          process.env.CDK_ENV_WEB_SUBDOMAIN,
+          process.env.CDK_ENV_WEB_HOSTED_ZONE,
         ),
-        zone: process.env.CDK_ENV_HOSTED_ZONE,
+        zone: process.env.CDK_ENV_WEB_HOSTED_ZONE,
       };
     }
 
@@ -158,6 +164,13 @@ class CdkStack extends Stack {
 
     if (process.env.CDK_ENV_REPO) {
       config.repo = `repo:${process.env.CDK_ENV_REPO}:*`;
+    }
+
+    if (process.env.CDK_ENV_INFRASTRUCTURE_STACK_SHA) {
+      Tags.of(this).add(
+        CDK.TAG.STACK_SHA,
+        process.env.CDK_ENV_INFRASTRUCTURE_STACK_SHA,
+      );
     }
 
     // * Do not use CDK_ENV vars past this point
@@ -299,4 +312,4 @@ class CdkStack extends Stack {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { CdkStack };
+export { CdkInfrastructureStack };
