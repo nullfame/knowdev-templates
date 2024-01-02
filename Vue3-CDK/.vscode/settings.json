@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "certificatemanager",
+    "clonedeep",
     "composables",
     "Finlayson",
     "fontface",
@@ -11,6 +12,7 @@
     "pinia",
     "roboto",
     "unplugin",
+    "vendia",
     "vuekit",
     "vuetify",
     "wght"
