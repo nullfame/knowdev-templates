@@ -42,6 +42,7 @@ npm --prefix $PROJECT_PATH install --save-dev \
   eslint-plugin-import \
   eslint-plugin-prettier \
   eslint-plugin-prettier-vue \
+  eslint-plugin-vitest \
   eslint-plugin-vue \
   hygen \
   jest-extended \
