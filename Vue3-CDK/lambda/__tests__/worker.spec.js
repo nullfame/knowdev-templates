@@ -1,4 +1,4 @@
-const { handler } = require("../worker");
+const { handler } = require("../worker.js");
 
 //
 //

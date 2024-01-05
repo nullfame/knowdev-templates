@@ -2,7 +2,7 @@ const HTTP = require("@knowdev/http");
 const { getHeaderFrom } = require("@knowdev/http");
 
 const request = require("supertest");
-const app = require("../app");
+const app = require("../app.js");
 
 //
 //
