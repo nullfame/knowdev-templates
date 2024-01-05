@@ -1,4 +1,4 @@
-const { log, projectHandler } = require("@knowdev/lambda");
+import { log, projectHandler } from "@knowdev/lambda";
 
 //
 //
@@ -10,7 +10,8 @@ const { log, projectHandler } = require("@knowdev/lambda");
 // Handler
 //
 
-const handler = projectHandler(
+// eslint-disable-next-line import/prefer-default-export
+export const handler = projectHandler(
   // eslint-disable-next-line no-unused-vars
   async (event, context) => {
     log.debug("Hello, world");
@@ -18,12 +19,3 @@ const handler = projectHandler(
   },
   { name: "hello" },
 );
-
-//
-//
-// Export
-//
-
-module.exports = {
-  handler,
-};

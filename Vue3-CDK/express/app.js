@@ -1,7 +1,7 @@
-const { echoRoute, httpRoute } = require("@knowdev/express");
-const HTTP = require("@knowdev/http");
+import { echoRoute, httpRoute } from "@knowdev/express";
+import HTTP from "@knowdev/http";
 
-const express = require("express");
+import express from "express";
 
 //
 //
@@ -30,4 +30,4 @@ app.use("/echo/*", echoRoute);
 // API Gateway is listening and providing the request
 // Express does not need to listen to a port
 // app.listen(3000);
-module.exports = app;
+export default app;

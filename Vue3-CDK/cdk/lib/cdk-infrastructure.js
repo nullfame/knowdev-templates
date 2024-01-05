@@ -70,7 +70,7 @@ class CdkInfrastructureStack extends Stack {
     // Validate
     //
 
-    // Throw an error if CDK_HOSTED_ZONE is an invalid hostname
+    // Throw an error if CDK_ENV_WEB_HOSTED_ZONE is an invalid hostname
     if (
       process.env.CDK_ENV_WEB_HOSTED_ZONE &&
       !isValidHostname(process.env.CDK_ENV_WEB_HOSTED_ZONE)

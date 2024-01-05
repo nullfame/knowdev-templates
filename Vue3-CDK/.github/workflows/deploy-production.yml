@@ -73,7 +73,7 @@ jobs:
       ##
       # API Backend Deployment
       ##
-      - name: CDK Infrastructure Deployment
+      - name: CDK Backend Deployment
         run: |
           npm --prefix cdk run cdk deploy -- CdkBackendStack --require-approval never
       ##

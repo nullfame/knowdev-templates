@@ -1,5 +1,4 @@
-require("source-map-support/register");
-const serverlessExpress = require("@vendia/serverless-express");
-const app = require("./app.js");
+import serverlessExpress from "@vendia/serverless-express";
+import app from "./app.js";
 
-exports.handler = serverlessExpress({ app });
+export default serverlessExpress({ app });
